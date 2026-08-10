@@ -1,0 +1,4 @@
+.env
+data/db.json
+data/dev-outbox.json
+node_modules/

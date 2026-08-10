@@ -1,0 +1,33 @@
+databases:
+  - name: omniverify-db
+    plan: free   # 1 GB, expires 30 days after creation + 14-day grace period. See README.
+    databaseName: omniverify
+    user: omniverify
+
+services:
+  - type: web
+    name: omniverify
+    runtime: node
+    plan: free   # $0/month web service. See README "Free deployment (to start)".
+    buildCommand: "npm install"
+    startCommand: "node server.js"
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        fromDatabase:
+          name: omniverify-db
+          property: connectionString
+      # Add real provider credentials from the Render dashboard
+      # (Environment tab) once you're ready to send real messages —
+      # leaving them unset keeps the app in dev mode (codes logged,
+      # not sent).
+      # - key: TWILIO_SID
+      # - key: TWILIO_AUTH_TOKEN
+      # - key: TWILIO_FROM
+      # - key: WHATSAPP_PROVIDER_TOKEN
+      # - key: WHATSAPP_PHONE_ID
+      # - key: SMTP_HOST
+      # - key: SMTP_PORT
+      # - key: SMTP_USER
+      # - key: SMTP_PASS
